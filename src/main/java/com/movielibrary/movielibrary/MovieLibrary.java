@@ -2,8 +2,10 @@ package com.movielibrary.movielibrary;
 
 import java.util.HashMap;
 import java.util.Map;
-
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Iterator;
 
 import org.json.simple.JSONArray;
@@ -38,31 +40,35 @@ final class Movie {
     }
 
     public String toString() {
-        return "{\n\t\"title\":\""+title+"\",\n\tdirector\":\""+director+"\",\n\t\"releaseDate\":\""+releaseDate+"\",\n\t\"type\":\""+type+"\"\n}";
+        return "{\n\t\"title\":\"" + title + "\",\n\tdirector\":\"" + director + "\",\n\t\"releaseDate\":\""
+                + releaseDate + "\",\n\t\"type\":\"" + type + "\"\n}";
     }
 
 }
 
 public class MovieLibrary {
-    // HashMap is useful in this case because we want to allow CRUD, which is easily manipulated.
-    Map<String,Movie> movies = new HashMap<>();
+    // HashMap is useful in this case because we want to allow CRUD, which is easily
+    // manipulated.
+    Map<String, Movie> movies = new HashMap<>();
     String filename;
+
     /* Constructor */
     public MovieLibrary(String filename) {
         this.filename = filename;
         JSONParser parser = new JSONParser();
         try {
- 
+
             Object obj = parser.parse(new FileReader(filename));
- 
+
             JSONArray movArr = (JSONArray) obj;
 
             Iterator<JSONObject> iterator = movArr.iterator();
             while (iterator.hasNext()) {
                 JSONObject mov = iterator.next();
-                movies.put((String) mov.get("title"), new Movie((String) mov.get("title"), (String) mov.get("director"), (String) mov.get("releaseDate"), (String) mov.get("type")));
+                movies.put((String) mov.get("title"), new Movie((String) mov.get("title"), (String) mov.get("director"),
+                        (String) mov.get("releaseDate"), (String) mov.get("type")));
             }
- 
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -79,8 +85,14 @@ public class MovieLibrary {
     }
 
     public boolean SaveToFile() {
-
-        // to do: toString() and write to file.
+        BufferedWriter writer;
+        try {
+            writer = new BufferedWriter(new FileWriter(this.filename));
+            writer.write(toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return true;
     }
 
