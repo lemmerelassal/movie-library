@@ -40,7 +40,7 @@ final class Movie {
     }
 
     public String toString() {
-        return "{\n\t\"title\":\"" + title + "\",\n\tdirector\":\"" + director + "\",\n\t\"releaseDate\":\""
+        return "{\n\t\"title\":\"" + title + "\",\n\t\"director\":\"" + director + "\",\n\t\"releaseDate\":\""
                 + releaseDate + "\",\n\t\"type\":\"" + type + "\"\n}";
     }
 
@@ -92,6 +92,7 @@ public class MovieLibrary {
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
         return true;
     }
