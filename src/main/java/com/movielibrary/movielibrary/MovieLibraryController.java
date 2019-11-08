@@ -47,10 +47,10 @@ public class MovieLibraryController {
     public ResponseEntity update(
       @PathVariable("title") String title, @PathVariable("director") String director, @PathVariable("releaseDate") String releaseDate, @PathVariable("type") String type)  {
         if(movielibrary.update(title, director, releaseDate, type)) {
-          logger.info("Update %s successful", title);
+          logger.info("Update successful ", title);
           return new ResponseEntity(HttpStatus.OK);
         } else {
-          logger.error("Update %s failed", title);
+          logger.error("Update %s failed ", title);
           return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
