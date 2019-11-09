@@ -29,7 +29,7 @@ class DemoApplicationTests {
 			JSONArray movArr = (JSONArray) obj;
 			return movArr;
 		} catch (Exception e) {
-			logger.error("Exception caught in MovieLibrary constructor:"+e.getMessage());
+			logger.error("Exception caught in parseJSON:"+e.getMessage());
 			return new JSONArray();
 		}
 	}
